@@ -178,7 +178,7 @@ namespace ProjekatGrafovi
             do
             {
                 changed = false;
-                HashSet<int> processedNodes = new HashSet<int>(); // obradjeni cvorovi
+                HashSet<int> processedNodes = new HashSet<int>();
 
                 foreach (Grana edge in edges)
                 {
