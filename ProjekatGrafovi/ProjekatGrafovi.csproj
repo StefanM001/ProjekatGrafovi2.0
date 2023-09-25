@@ -90,6 +90,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Cvor.cs" />
+    <Compile Include="DrawingGraph.cs" />
     <Compile Include="FileClass.cs" />
     <Compile Include="Grana.cs" />
     <Compile Include="MainWindow.xaml.cs">

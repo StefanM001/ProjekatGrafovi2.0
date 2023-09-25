@@ -11,7 +11,7 @@ namespace ProjekatGrafovi
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
-	/// </summary>
+	/// </summary>  
 	public partial class MainWindow : Window, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -24,8 +24,7 @@ namespace ProjekatGrafovi
 		public static Dictionary<int, Cvor> allVerticles = new Dictionary<int, Cvor>();
 		public static List<Cvor> verticlesList = new List<Cvor>();
 		public static List<Grana> edgesList = new List<Grana>();
-		public static Random rand = new Random();
-        Dictionary<int, object> nodes = new Dictionary<int, object>();
+		public static List<string> LayoutOptions = new List<string>();
 
         private string verticlesString;
 		public string VerticlesString
@@ -59,7 +58,12 @@ namespace ProjekatGrafovi
 		public MainWindow()
 		{
 			InitializeComponent();
-			DataContext = this;
+            LayoutOptions = new List<string>();
+            LayoutOptions.Add("Circular Layout");
+            LayoutOptions.Add("New Sugiyama layout");
+            LayoutOptions.Add("Old Sugiyama layout");
+			layout.ItemsSource = LayoutOptions;
+            DataContext = this;
 		}
 
 
@@ -110,8 +114,6 @@ namespace ProjekatGrafovi
 				}
 				else
 				{
-					//int x = rand.Next(50, 700);
-					//int y = rand.Next(1, 200);
 					int x = 0;
 					int y = 0;
 					allVerticles.Add(id, new Cvor(id, x, y));
@@ -140,8 +142,8 @@ namespace ProjekatGrafovi
 				}
 				else
 				{
-					Cvor prvi = new Cvor();
-					Cvor drugi = new Cvor();
+					//Cvor prvi = new Cvor();
+					//Cvor drugi = new Cvor();
 
 					if(prviID == drugiID)
 					{
@@ -167,7 +169,90 @@ namespace ProjekatGrafovi
             }
         }
 
-        private void LayoutGraph(List<Cvor> verticlesList, List<Grana> edges)
+        private void NewLayoutGraph(List<Cvor> verticlesList, List<Grana> edges)
+        {
+            int layerSpacing = 70;
+           // int nodeSpacing = 50;
+
+            Dictionary<int, Cvor> nodeDictionary = verticlesList.ToDictionary(node => node.Id);
+
+            foreach(Grana edge in edges)
+            {
+                verticlesList.Find(verticle => verticle.Id == edge.prvi.Id).SourceTarget++;
+                verticlesList.Find(verticle => verticle.Id == edge.drugi.Id).TargetSource++;
+                edge.prvi.SourceTarget++;
+                edge.drugi.TargetSource++;
+            }
+
+            verticlesList = verticlesList.OrderByDescending(verticle => verticle.SourceTarget)
+                                          .ThenBy(verticle => verticle.TargetSource)
+                                          .ToList();
+            int currentX = 30;
+
+            Cvor firstNode = verticlesList[0];
+            firstNode.Layer = 1;
+            verticlesList[0].Layer = 1;
+
+            /* while (true)
+            {
+                if(edges.Find(edge => edge.prvi.Id == firstNode.Id) != null)
+                {
+                    edges.Find(edge => edge.prvi.Id == firstNode.Id).drugi.Layer = firstNode.Layer + 1;
+                    edges.Find(edge => edge.prvi.Id == firstNode.Id).drugi.X = edges.Find(edge => edge.prvi.Id == firstNode.Id).drugi.Id * 100;
+                    edges.Find(edge => edge.prvi.Id == firstNode.Id).drugi.Y = (firstNode.Layer + 1) * layerSpacing;
+                }
+
+                if(edges.Find(edge => edge.prvi.Id == firstNode.Id) != null && verticlesList.Find(verticle => verticle.Id == edges.Find(edge => edge.prvi.Id == firstNode.Id).drugi.Id) != null)
+                {
+                    verticlesList.Find(verticle => verticle.Id == edges.Find(edge => edge.prvi.Id == firstNode.Id).drugi.Id).Layer = firstNode.Layer + 1;
+                    verticlesList.Find(verticle => verticle.Id == edges.Find(edge => edge.prvi.Id == firstNode.Id).drugi.Id).Y = (firstNode.Layer + 1) * layerSpacing;
+                    verticlesList.Find(verticle => verticle.Id == edges.Find(edge => edge.prvi.Id == firstNode.Id).drugi.Id).X = verticlesList.Find(verticle => verticle.Id == edges.Find(edge => edge.prvi.Id == firstNode.Id).drugi.Id).Id * 100;
+                }
+
+                if(edges.Find(edge => edge.prvi.Id == firstNode.Id) != null)
+                {
+                    firstNode = edges.Find(edge => edge.prvi.Id == firstNode.Id).drugi;
+                }
+
+                if (firstNode.Id == verticlesList[verticlesList.Count - 1].Id)
+                {
+                    break;
+                }
+            } */
+
+            for (int i = 0; i < verticlesList.Count(); i++)
+            {
+                verticlesList[i].Layer = i;
+                verticlesList[i].X = currentX * verticlesList[i].Id;
+                verticlesList[i].Y = i * layerSpacing;
+                if (i > 1)
+                {
+                    if ((verticlesList[i].SourceTarget == verticlesList[i - 1].SourceTarget) &&
+                        (verticlesList[i].TargetSource == verticlesList[i - 1].TargetSource))
+                    {
+                        verticlesList[i].Layer = i - 1;
+                        verticlesList[i].X = currentX * verticlesList[i].Id;
+                        verticlesList[i].Y = i * layerSpacing;
+                    }
+                }
+            } 
+
+            foreach (Grana edge in edges)
+            {
+                if (nodeDictionary.TryGetValue(edge.prvi.Id, out Cvor sourceNode) &&
+                    nodeDictionary.TryGetValue(edge.drugi.Id, out Cvor targetNode))
+                {
+                    edge.prvi.X = sourceNode.X;
+                    edge.prvi.Y = sourceNode.Y;
+                    edge.drugi.X = targetNode.X;
+                    edge.drugi.Y = targetNode.Y;
+                }
+            }
+            DrawingGraph.DrawGraph(canvas, verticlesList, edges);
+
+        }
+
+        private void OldLayoutGraph(List<Cvor> verticlesList, List<Grana> edges)
         {
             int layerSpacing = 100;
             int nodeSpacing = 50;
@@ -193,7 +278,9 @@ namespace ProjekatGrafovi
                         }
                         else
                         {
-                            processedNodes.Add(targetNode.Id);
+							// targetNode.Layer = sourceNode.Layer + 1;
+							//changed = true;
+							processedNodes.Add(targetNode.Id);
                         }
                     }
                 }
@@ -219,8 +306,43 @@ namespace ProjekatGrafovi
                     edge.drugi.Y = targetNode.Y;
                 }
             }
-            FileClass.DrawGraph(canvas, verticlesList, edges);
-        }    
+            DrawingGraph.DrawGraph(canvas, verticlesList, edges);
+        } 
+
+        public void CircularLayout(List<Cvor> nodes, List<Grana> edges)
+        {
+            double centerX = canvas.Width / 2; // X koordinata centra kruga
+            double centerY = canvas.Height / 2; // Y koordinata centra kruga
+            double radius = Math.Min(canvas.Width, canvas.Height) / 2 - 50; // Rastojanje čvorova od centra kruga
+
+            double angle = 2 * Math.PI / nodes.Count; // Ugao između dva susedna čvora na krugu
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                double theta = i * angle; // Ugao za trenutni čvor
+
+                // Izračunavanje koordinata za čvor na krugu
+                double x = centerX + radius * Math.Cos(theta);
+                double y = centerY + radius * Math.Sin(theta);
+
+                nodes[i].X = x;
+                nodes[i].Y = y;
+
+                if (edges.Find(e => e.prvi.Id == nodes[i].Id) != null)
+                {
+                    edges.Find(e => e.prvi.Id == nodes[i].Id).prvi.X = x;
+                    edges.Find(e => e.prvi.Id == nodes[i].Id).prvi.Y = y;
+                }
+
+                if (edges.Find(e => e.drugi.Id == nodes[i].Id) != null)
+                {
+                    edges.Find(e => e.drugi.Id == nodes[i].Id).drugi.X = x;
+                    edges.Find(e => e.drugi.Id == nodes[i].Id).drugi.Y = y;
+                }
+            }
+
+            DrawingGraph.DrawGraph(canvas, nodes, edges);
+        }
 
         private void Generisi_Click(object sender, RoutedEventArgs e)
 		{
@@ -237,10 +359,25 @@ namespace ProjekatGrafovi
 				AddNewVertex(cvoroviSplit);
 
 				string[] graneSplit = edgesString.Split(';');
-
+                
 				AddNewEdge(graneSplit);
 
-				LayoutGraph(verticlesList, edgesList);
+                if (layout.SelectedItem.ToString() == "Circular Layout")
+                {
+                    CircularLayout(verticlesList, edgesList);
+                }
+                else if (layout.SelectedItem.ToString() == "New Sugiyama layout")
+                {
+                    NewLayoutGraph(verticlesList, edgesList);
+                }
+                else if(layout.SelectedItem.ToString() == "Old Sugiyama layout")
+                {
+                    OldLayoutGraph(verticlesList, edgesList);
+                }
+                else
+                {
+                    MessageBox.Show("You have to choose layout first!");
+                }
 
                 verticles.BorderBrush = Brushes.AliceBlue;
 				edges.BorderBrush = Brushes.AliceBlue;
@@ -310,6 +447,7 @@ namespace ProjekatGrafovi
             {
                 MessageBox.Show("You didn't choose file correctly. Try again");
                 StartAgain();
+				return;
             }
 
             string edgesFromTxtFile = File.ReadAllText(fileName);
@@ -319,45 +457,24 @@ namespace ProjekatGrafovi
             FastVertexAdd(graneSplit);
             AddNewEdge(graneSplit);
 
-            LayoutGraph(verticlesList, edgesList);
+            if(layout.SelectedItem.ToString() == "Circular Layout")
+            {
+                CircularLayout(verticlesList, edgesList);
+            }
+            else if (layout.SelectedItem.ToString() == "New Sugiyama layout")
+            {
+                NewLayoutGraph(verticlesList, edgesList);
+            }
+            else if (layout.SelectedItem.ToString() == "Old Sugiyama layout")
+            {
+                OldLayoutGraph(verticlesList, edgesList);
+            }
+            else
+            {
+                MessageBox.Show("You have to choose layout first!");
+            }
+            
             StartAgain();
         }
-
-
-
-    /*public void CircularLayout(List<Cvor> nodes, List<Grana> edges)
-		{
-            double centerX = canvas.Width / 2; // X koordinata centra kruga
-            double centerY = canvas.Height / 2; // Y koordinata centra kruga
-            double radius = Math.Min(canvas.Width, canvas.Height) / 2 - 50; // Rastojanje čvorova od centra kruga
-
-            double angle = 2 * Math.PI / nodes.Count; // Ugao između dva susedna čvora na krugu
-
-			for (int i = 0; i < nodes.Count; i++)
-			{
-				double theta = i * angle; // Ugao za trenutni čvor
-
-				// Izračunavanje koordinata za čvor na krugu
-				double x = centerX + radius * Math.Cos(theta);
-				double y = centerY + radius * Math.Sin(theta);
-
-				nodes[i].X = x;
-				nodes[i].Y = y;
-
-				if (edges.Find(e => e.prvi.Id == nodes[i].Id) != null)
-				{
-					edges.Find(e => e.prvi.Id == nodes[i].Id).prvi.X = x;
-					edges.Find(e => e.prvi.Id == nodes[i].Id).prvi.Y = y;
-				}
-
-				if (edges.Find(e => e.drugi.Id == nodes[i].Id) != null) 
-				{
-                    edges.Find(e => e.drugi.Id == nodes[i].Id).drugi.X = x;
-                    edges.Find(e => e.drugi.Id == nodes[i].Id).drugi.Y = y;
-                }
-            }
-
-            DrawGraph(nodes, edges);
-		} */
-}
+	}
 }

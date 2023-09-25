@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="300"/>
         </Grid.RowDefinitions>
 
@@ -33,12 +33,18 @@
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="10">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,10,0">
                 <TextBlock Text="Definicija grana:" FontSize="17" Margin="20,0,0,0" Foreground="#B59410" Width="150"/>
                 <TextBox x:Name="edges" Text="{Binding EdgesString, Mode=TwoWay}" Margin="20,0,20,0" FontSize="17" Width="207" Height="30"/>
                 <StackPanel Orientation="Vertical" Height="33">
                     <Label Content="Correct Form: A,B;B,C;A,C" Foreground="#B59410" FontSize="17" HorizontalContentAlignment="Center"/>
                 </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="10">
+                <TextBlock Text="Choose layout:" FontSize="17" Margin="20,0,0,0" Foreground="#B59410" Width="150"/>
+                <ComboBox x:Name="layout" ItemsSource="{Binding LayoutOptions}" Margin="20,0,20,0" FontSize="17" Width="207" Height="30"/>
+                <StackPanel Orientation="Vertical" Height="33"/>
             </StackPanel>
 
 
@@ -48,7 +54,7 @@
 
         </Grid>
 
-        <Canvas x:Name="canvas" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Grid.ColumnSpan="2" Grid.Row="2" Width="850" Height="400" Margin="25,0,0,-124">
+        <Canvas x:Name="canvas" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Grid.ColumnSpan="2" Grid.Row="2" Width="850" Height="316" Margin="25,0,0,-26">
 
         </Canvas>
 
