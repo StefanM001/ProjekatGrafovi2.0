@@ -9,7 +9,7 @@
         Title="MainWindow" Height="600" Width="900">
     <Grid Background="#004D4F">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="553*"/>
+            <ColumnDefinition Width="554*"/>
             <ColumnDefinition Width="247*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
