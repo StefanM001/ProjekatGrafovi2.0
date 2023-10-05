@@ -12,7 +12,7 @@ namespace ProjekatGrafovi
 {
     public class DrawingGraph
     { 
-        public static void DrawGraph(Canvas canvas, List<Cvor> nodes, List<Grana> edges)
+        public void DrawGraph(Canvas canvas, List<Cvor> nodes, List<Grana> edges)
         {
             DrawEdge(canvas, nodes, edges);
 
@@ -26,7 +26,7 @@ namespace ProjekatGrafovi
             fc.WriteNumberText(idSCV);
         }
 
-        public static void DrawNode(Canvas canvas, List<Cvor> nodes, List<Grana> edges)
+        public void DrawNode(Canvas canvas, List<Cvor> nodes, List<Grana> edges)
         {
             foreach (var node in nodes)
             {
@@ -63,7 +63,7 @@ namespace ProjekatGrafovi
             }
         }
 
-        public static void DrawEdge(Canvas canvas, List<Cvor> nodes, List<Grana> edges)
+        public void DrawEdge(Canvas canvas, List<Cvor> nodes, List<Grana> edges)
         {
             foreach (var edge in edges)
             {
@@ -87,7 +87,7 @@ namespace ProjekatGrafovi
             }
         }
 
-        public static void DrawLineEdge(Canvas canvas, Grana edge)
+        public void DrawLineEdge(Canvas canvas, Grana edge)
         {
             Line line = new Line();
             line.X1 = edge.prvi.X;
@@ -99,7 +99,7 @@ namespace ProjekatGrafovi
             canvas.Children.Add(line);
         }
 
-        public static void DrawBackEdge(Canvas canvas, Grana edge)
+        public void DrawBackEdge(Canvas canvas, Grana edge)
         {
             double centerX = (edge.prvi.X + edge.drugi.X) / 2.0;
             double centerY = (edge.prvi.Y + edge.drugi.Y) / 2.0;

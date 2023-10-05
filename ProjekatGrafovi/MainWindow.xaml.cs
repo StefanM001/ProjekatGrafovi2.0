@@ -58,16 +58,24 @@ namespace ProjekatGrafovi
 		public MainWindow()
 		{
 			InitializeComponent();
-            LayoutOptions = new List<string>();
-            LayoutOptions.Add("Circular Layout");
-            LayoutOptions.Add("New Sugiyama layout");
-            LayoutOptions.Add("Old Sugiyama layout");
-			layout.ItemsSource = LayoutOptions;
+            LayoutOptions = new List<string>
+            {
+                "Circular Layout",
+                "New Sugiyama layout",
+                "Old Sugiyama layout"
+            };
+            layout.ItemsSource = LayoutOptions;
+            InitializeWebView();
             DataContext = this;
 		}
 
+        private async void InitializeWebView()
+        {
+            await webView.EnsureCoreWebView2Async(null);
+            webView.Source = new Uri("https://www.google.com/maps");
+        }
 
-		public bool ValidationNoEmptySpace()
+        public bool ValidationNoEmptySpace()
 		{
 			bool valid = true;
 
@@ -142,9 +150,6 @@ namespace ProjekatGrafovi
 				}
 				else
 				{
-					//Cvor prvi = new Cvor();
-					//Cvor drugi = new Cvor();
-
 					if(prviID == drugiID)
 					{
 						Grana g = new Grana(allVerticles[prviID], allVerticles[prviID]);
@@ -220,7 +225,7 @@ namespace ProjekatGrafovi
                 }
             } */
 
-            for (int i = 0; i < verticlesList.Count(); i++)
+            for (int i = 0; i < verticlesList.Count; i++)
             {
                 verticlesList[i].Layer = i;
                 verticlesList[i].X = currentX * verticlesList[i].Id;
@@ -248,7 +253,9 @@ namespace ProjekatGrafovi
                     edge.drugi.Y = targetNode.Y;
                 }
             }
-            DrawingGraph.DrawGraph(canvas, verticlesList, edges);
+            DrawingGraph drawingGraph = new DrawingGraph();
+
+            drawingGraph.DrawGraph(canvas, verticlesList, edges);
 
         }
 
@@ -306,7 +313,10 @@ namespace ProjekatGrafovi
                     edge.drugi.Y = targetNode.Y;
                 }
             }
-            DrawingGraph.DrawGraph(canvas, verticlesList, edges);
+            
+            DrawingGraph drawingGraph = new DrawingGraph();
+
+            drawingGraph.DrawGraph(canvas, verticlesList, edges);
         } 
 
         public void CircularLayout(List<Cvor> nodes, List<Grana> edges)
@@ -341,7 +351,9 @@ namespace ProjekatGrafovi
                 }
             }
 
-            DrawingGraph.DrawGraph(canvas, nodes, edges);
+            DrawingGraph drawingGraph = new DrawingGraph();
+
+            drawingGraph.DrawGraph(canvas, verticlesList, edges);
         }
 
         private void Generisi_Click(object sender, RoutedEventArgs e)
