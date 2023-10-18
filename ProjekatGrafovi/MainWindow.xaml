@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:local="clr-namespace:ProjekatGrafovi"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="900">
@@ -18,7 +17,7 @@
             <RowDefinition Height="300"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" HorizontalAlignment="Center" FontSize="27" FontWeight="Bold" Foreground="#B59410" Text="Vizuelna reprezentacija grafa" Grid.ColumnSpan="2"/>
+        <TextBlock Grid.Row="0" FontSize="27" FontWeight="Bold" Foreground="#B59410" Text="Vizuelna reprezentacija grafa" Grid.ColumnSpan="2" Margin="265,0,266,0"/>
 
         <Grid Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -55,12 +54,19 @@
 
         </Grid>
 
-        <wv2:WebView2 Name="webView"  Grid.Row="2" Grid.ColumnSpan="2" />
-
         <Canvas x:Name="canvas" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Grid.ColumnSpan="2" Grid.Row="2" Width="850" Height="316" Margin="25,0,0,-26">
-            
+            <Image Source="GMapsImages/NoviSadComplete-Copy.tif" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top" Width="840" Height="334" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
         </Canvas>
 
-        
+
     </Grid>
 </Window>
