@@ -43,7 +43,7 @@
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="10">
                 <TextBlock Text="Choose layout:" FontSize="17" Margin="20,0,0,0" Foreground="#B59410" Width="150"/>
-                <ComboBox x:Name="layout" ItemsSource="{Binding LayoutOptions}" Margin="20,0,20,0" FontSize="17" Width="207" Height="30"/>
+                <ComboBox x:Name="layout" ItemsSource="{Binding LayoutOptions}" Margin="20,0,20,0" FontSize="17" Width="207" Height="30" />
                 <StackPanel Orientation="Vertical" Height="33"/>
             </StackPanel>
 
@@ -51,6 +51,7 @@
 
             <Button x:Name="generisi" FontSize="17"  Content="Generisi" Height="37" VerticalAlignment="Top"  Click="Generisi_Click" Margin="70,-11,71,0" Grid.Column="1"/>
             <Button x:Name="FastGenerate" FontSize="17"  Content="Fast generate(file)" HorizontalAlignment="Center" Width="181" Height="38" VerticalAlignment="Top"  Click="FastGenerate_Click" Margin="0,36,0,0" Grid.Column="1"/>
+            <Button x:Name="CoordinatesChoose" FontSize="17"  Content="Choose coordinates" Height="38" VerticalAlignment="Top"  Click="CoordinatesChoose_Click" Margin="22,86,22,0" Grid.Column="1"/>
 
         </Grid>
 

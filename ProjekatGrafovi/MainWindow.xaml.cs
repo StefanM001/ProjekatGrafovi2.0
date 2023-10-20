@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ProjekatGrafovi
@@ -62,7 +63,7 @@ namespace ProjekatGrafovi
             {
                 "Circular Layout",
                 "New Sugiyama layout",
-                "Old Sugiyama layout"
+                "Old Sugiyama layout",
             };
             layout.ItemsSource = LayoutOptions;
             DataContext = this;
@@ -108,7 +109,7 @@ namespace ProjekatGrafovi
 			}
 			else
 			{
-				//canvas.Children.Clear();
+				ClearCanvas(canvas);
                 GraphParameterRead gpr = new GraphParameterRead();
 
 				string[] cvoroviSplit = VerticlesString.Split(',');
@@ -151,25 +152,10 @@ namespace ProjekatGrafovi
 
         private void FastGenerate_Click(object sender, RoutedEventArgs e)
         {
-			//canvas.Children.Clear();
+			ClearCanvas(canvas);
 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-
-            bool? result = openFileDialog.ShowDialog();
-            string fileName = "";
-
-            if (result == true)
-            {
-                fileName = openFileDialog.FileName;
-            }
-            else
-            {
-                MessageBox.Show("You didn't choose file correctly. Try again");
-                StartAgain();
-				return;
-            }
+			string fileName = OpenFile();
+			if(fileName == null) return;
 
             string edgesFromTxtFile = File.ReadAllText(fileName);
 
@@ -180,23 +166,84 @@ namespace ProjekatGrafovi
             gpr.AddNewEdge(graneSplit, VerticlesString, EdgesString, edges);
             AlgorithmClass algorithmClass = new AlgorithmClass();
 
-            switch (layout.SelectedItem.ToString())
-            {
-                case "Circular Layout":
-                    algorithmClass.CircularLayout(verticlesList, edgesList, verticlesList, canvas);
-                    break;
-                case "New Sugiyama layout":
-                    algorithmClass.NewLayoutGraph(verticlesList, edgesList, canvas);
-                    break;
-                case "Old Sugiyama layout":
-                    algorithmClass.OldLayoutGraph(verticlesList, edgesList, canvas);
-                    break;
-                default:
-                    MessageBox.Show("You have to choose layout first!");
-                    break;
+			if(layout.SelectedItem != null)
+			{
+                switch (layout.SelectedItem.ToString())
+                {
+                    case "Circular Layout":
+                        algorithmClass.CircularLayout(verticlesList, edgesList, verticlesList, canvas);
+                        break;
+                    case "New Sugiyama layout":
+                        algorithmClass.NewLayoutGraph(verticlesList, edgesList, canvas);
+                        break;
+                    case "Old Sugiyama layout":
+                        algorithmClass.OldLayoutGraph(verticlesList, edgesList, canvas);
+                        break;
+                    default:
+                        MessageBox.Show("You have to choose layout first!");
+                        break;
+                }
             }
-
+			else
+			{
+				MessageBox.Show("You need to choose layout first!");
+			}
+            
             StartAgain();
         }
-	}
+
+        private void CoordinatesChoose_Click(object sender, RoutedEventArgs e)
+        {
+			ClearCanvas(canvas);
+
+			string fileName = OpenFile();
+			if (fileName == null) return;
+
+			string allCoordinates = File.ReadAllText(fileName);
+
+            GraphParameterRead gpr = new GraphParameterRead();
+
+            string[] cvoroviSplit = VerticlesString.Split(',');
+
+            gpr.AddNewVertex(cvoroviSplit, VerticlesString, EdgesString, verticles);
+
+            string[] graneSplit = edgesString.Split(';');
+
+            gpr.AddNewEdge(graneSplit, VerticlesString, EdgesString, edges);
+
+			string[] coordinateSplit = allCoordinates.Split(';');
+			gpr.SetNodesCoordinates(coordinateSplit);
+
+			DrawingGraph dg = new DrawingGraph();
+			dg.DrawGraph(canvas, verticlesList, edgesList);
+        }
+
+		private string OpenFile()
+		{
+            ClearCanvas(canvas);
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+
+            bool? result = openFileDialog.ShowDialog();
+            string fileName = "";
+
+            if (result == true)
+            {
+                fileName = openFileDialog.FileName;
+				return fileName;
+            }
+            else
+            {
+                MessageBox.Show("You didn't choose file correctly. Try again");
+                StartAgain();
+				return null;
+            }
+        }
+
+		private void ClearCanvas(Canvas canvas)
+		{
+			canvas.Children.RemoveRange(1, canvas.Children.Count);
+		}
+    }
 }

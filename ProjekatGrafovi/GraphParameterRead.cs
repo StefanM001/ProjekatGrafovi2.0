@@ -7,6 +7,7 @@ using System.Windows.Forms.VisualStyles;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
+using System.Security.Cryptography;
 
 namespace ProjekatGrafovi
 {
@@ -111,6 +112,38 @@ namespace ProjekatGrafovi
                         MainWindow.allVerticles.Add(drugiID, new Cvor(drugiID, x, y));
                         MainWindow.verticlesList.Add(new Cvor(drugiID, x, y));
                         uniqueVertex.Add(drugiID, new Cvor(drugiID, x, y));
+                    }
+                }
+            }
+        }
+
+        public void SetNodesCoordinates(string[] coordinateSplit)
+        {
+            for(int i = 0; i < coordinateSplit.Length; i++)
+            {
+                string[] numbers = coordinateSplit[i].Split(',');
+
+                if (!Int32.TryParse(numbers[0], out int X) || !Int32.TryParse(numbers[1], out int Y))
+                {
+                    MessageBox.Show("Error in parsing coordinates!");
+                }
+                else
+                {
+                    MainWindow.verticlesList[i].X = X;
+                    MainWindow.verticlesList[i].Y = Y;
+                    MainWindow.allVerticles[MainWindow.verticlesList[i].Id].X = X;
+                    MainWindow.allVerticles[MainWindow.verticlesList[i].Id].Y = Y;
+
+                    foreach (Grana edge in MainWindow.edgesList)
+                    {
+                        if (MainWindow.allVerticles.TryGetValue(edge.prvi.Id, out Cvor sourceNode) &&
+                            MainWindow.allVerticles.TryGetValue(edge.drugi.Id, out Cvor targetNode))
+                        {
+                            edge.prvi.X = sourceNode.X;
+                            edge.prvi.Y = sourceNode.Y;
+                            edge.drugi.X = targetNode.X;
+                            edge.drugi.Y = targetNode.Y;
+                        }
                     }
                 }
             }

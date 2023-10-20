@@ -177,8 +177,11 @@ namespace ProjekatGrafovi
 
             doc.AppendChild(root);
 
-			string filePath = $"ProjekatGraf{idSCV}.svg";
-			doc.Save(filePath);
+            string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string filePath = System.IO.Path.Combine(appDirectory, "SVGFiles", $"ProjekatGraf{idSCV}.svg");
+
+            //string filePath = $"ProjekatGraf{idSCV}.svg";
+            doc.Save(filePath);
 
 		}
     }
