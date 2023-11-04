@@ -1,0 +1,121 @@
+<VRTDataset rasterXSize="2923" rasterYSize="1906">
+  <SRS dataAxisToSRSAxisMapping="1,2">PROJCS["WGS 84 / Pseudo-Mercator",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Mercator_1SP"],PARAMETER["central_meridian",0],PARAMETER["scale_factor",1],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],EXTENSION["PROJ4","+proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs"],AUTHORITY["EPSG","3857"]]</SRS>
+  <GeoTransform>  2.2055438728870512e+06,  1.7052448661355664e+00,  0.0000000000000000e+00,  5.6624521079039695e+06,  0.0000000000000000e+00, -1.7052448661355664e+00</GeoTransform>
+  <VRTRasterBand dataType="Byte" band="1">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_MAXIMUM">255</MDI>
+      <MDI key="STATISTICS_MEAN">101.260640681</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_STDDEV">63.524628119069</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">100</MDI>
+    </Metadata>
+    <ColorInterp>Red</ColorInterp>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\Grbavica_georeferenced.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="1118" RasterYSize="830" DataType="Byte" BlockXSize="1118" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="1118" ySize="830" />
+      <DstRect xOff="754.979061181814" yOff="909.723836554263" xSize="1118" ySize="830" />
+    </SimpleSource>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\Liman1_Georeferenced.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="920" RasterYSize="781" DataType="Byte" BlockXSize="920" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="920" ySize="781" />
+      <DstRect xOff="1694.44808924883" yOff="863.386665280959" xSize="1228.1686448874" ySize="1042.60838223594" />
+    </SimpleSource>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\Sajmiste_Georeferenced.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="1560" RasterYSize="939" DataType="Byte" BlockXSize="1560" BlockYSize="1" />
+      <SrcRect xOff="0" yOff="0" xSize="1560" ySize="939" />
+      <DstRect xOff="0" yOff="0" xSize="1620.38875030192" ySize="975.349382393271" />
+    </SimpleSource>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\StariGrad_Georeferenced.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="934" RasterYSize="744" DataType="Byte" BlockXSize="934" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="934" ySize="744" />
+      <DstRect xOff="1488.5608394753" yOff="110.047471311613" xSize="1394.92713032316" ySize="1111.16251066427" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="2">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_MAXIMUM">255</MDI>
+      <MDI key="STATISTICS_MEAN">99.498083432895</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_STDDEV">60.496422782796</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">100</MDI>
+    </Metadata>
+    <ColorInterp>Green</ColorInterp>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\Grbavica_georeferenced.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SourceProperties RasterXSize="1118" RasterYSize="830" DataType="Byte" BlockXSize="1118" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="1118" ySize="830" />
+      <DstRect xOff="754.979061181814" yOff="909.723836554263" xSize="1118" ySize="830" />
+    </SimpleSource>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\Liman1_Georeferenced.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SourceProperties RasterXSize="920" RasterYSize="781" DataType="Byte" BlockXSize="920" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="920" ySize="781" />
+      <DstRect xOff="1694.44808924883" yOff="863.386665280959" xSize="1228.1686448874" ySize="1042.60838223594" />
+    </SimpleSource>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\Sajmiste_Georeferenced.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SourceProperties RasterXSize="1560" RasterYSize="939" DataType="Byte" BlockXSize="1560" BlockYSize="1" />
+      <SrcRect xOff="0" yOff="0" xSize="1560" ySize="939" />
+      <DstRect xOff="0" yOff="0" xSize="1620.38875030192" ySize="975.349382393271" />
+    </SimpleSource>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\StariGrad_Georeferenced.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SourceProperties RasterXSize="934" RasterYSize="744" DataType="Byte" BlockXSize="934" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="934" ySize="744" />
+      <DstRect xOff="1488.5608394753" yOff="110.047471311613" xSize="1394.92713032316" ySize="1111.16251066427" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="3">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_MAXIMUM">255</MDI>
+      <MDI key="STATISTICS_MEAN">97.681342717045</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_STDDEV">60.119517697485</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">100</MDI>
+    </Metadata>
+    <ColorInterp>Blue</ColorInterp>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\Grbavica_georeferenced.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SourceProperties RasterXSize="1118" RasterYSize="830" DataType="Byte" BlockXSize="1118" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="1118" ySize="830" />
+      <DstRect xOff="754.979061181814" yOff="909.723836554263" xSize="1118" ySize="830" />
+    </SimpleSource>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\Liman1_Georeferenced.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SourceProperties RasterXSize="920" RasterYSize="781" DataType="Byte" BlockXSize="920" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="920" ySize="781" />
+      <DstRect xOff="1694.44808924883" yOff="863.386665280959" xSize="1228.1686448874" ySize="1042.60838223594" />
+    </SimpleSource>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\Sajmiste_Georeferenced.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SourceProperties RasterXSize="1560" RasterYSize="939" DataType="Byte" BlockXSize="1560" BlockYSize="1" />
+      <SrcRect xOff="0" yOff="0" xSize="1560" ySize="939" />
+      <DstRect xOff="0" yOff="0" xSize="1620.38875030192" ySize="975.349382393271" />
+    </SimpleSource>
+    <SimpleSource resampling="nearest">
+      <SourceFilename relativeToVRT="0">C:\Users\Administrator\Documents\ProjekatGrafovi\ProjekatGrafovi\GMapsImages\StariGrad_Georeferenced.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SourceProperties RasterXSize="934" RasterYSize="744" DataType="Byte" BlockXSize="934" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="934" ySize="744" />
+      <DstRect xOff="1488.5608394753" yOff="110.047471311613" xSize="1394.92713032316" ySize="1111.16251066427" />
+    </SimpleSource>
+  </VRTRasterBand>
+</VRTDataset>

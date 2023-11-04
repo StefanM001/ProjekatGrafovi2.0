@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjekatGrafovi"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="900">
+        Title="MainWindow" Height="300" Width="900">
     <Grid Background="#004D4F">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="554*"/>
@@ -14,7 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="150"/>
-            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" FontSize="27" FontWeight="Bold" Foreground="#B59410" Text="Vizuelna reprezentacija grafa" Grid.ColumnSpan="2" Margin="265,0,266,0"/>
@@ -55,19 +55,11 @@
 
         </Grid>
 
-        <Canvas x:Name="canvas" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Grid.ColumnSpan="2" Grid.Row="2" Width="850" Height="316" Margin="25,0,0,-26">
-            <Image Source="GMapsImages/NoviSadComplete-Copy.tif" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top" Width="840" Height="334" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleY="1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
-        </Canvas>
+       <!--- <ScrollViewer Name="zoomScrollViewer" Grid.ColumnSpan="2" Grid.Row="2" Margin="10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Canvas x:Name="canvas" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Width="850" Height="500" >
 
+            </Canvas>
+        </ScrollViewer> -->
 
     </Grid>
 </Window>
