@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjekatGrafovi"
         mc:Ignorable="d"
-        Title="CanvasWindow" Height="805" Width="805">
+        Title="CanvasWindow" Height="600" Width="805">
     <Grid Background="#004D4F">
         <ScrollViewer Name="zoomScrollViewer" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Canvas x:Name="canvasWindow" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="800" Width="800">
+            <Canvas x:Name="canvasWindow" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="3000" Width="1500" MouseLeftButtonDown="canvasWindow_MouseLeftButtonDown" MouseMove="canvasWindow_MouseMove" MouseLeftButtonUp="canvasWindow_MouseLeftButtonUp">
 
             </Canvas>
         </ScrollViewer>
