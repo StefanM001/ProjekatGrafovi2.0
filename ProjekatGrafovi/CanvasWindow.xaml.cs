@@ -24,6 +24,8 @@ namespace ProjekatGrafovi
         private Point startPoint;
         private Point startOffset;
         private double scale = 1.0;
+        public static double startPointX = 0;
+        public static double startPointY = 0;
         public CanvasWindow()
         {
             InitializeComponent();
@@ -41,8 +43,8 @@ namespace ProjekatGrafovi
 
             List<ImageGeoreferenced> listOfDistricts = new List<ImageGeoreferenced> { sajmiste,  liman1, stariGrad, grbavica };
 
-            double startPointX = listOfDistricts.Min(item => item.X);
-            double startPointY = listOfDistricts.Max(item => item.Y);
+            startPointX = listOfDistricts.Min(item => item.X);
+            startPointY = listOfDistricts.Max(item => item.Y);
 
             PlaceDistrictsOnMap(listOfDistricts, startPointX, startPointY);
         }

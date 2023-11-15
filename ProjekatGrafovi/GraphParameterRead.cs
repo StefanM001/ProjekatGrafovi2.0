@@ -129,8 +129,8 @@ namespace ProjekatGrafovi
                 }
                 else
                 {
-                    X = Math.Abs(X - 2205543.87);
-                    Y = Math.Abs(Y - 5662452.10);
+                    X = Math.Abs(X - CanvasWindow.startPointX);
+                    Y = Math.Abs(Y - CanvasWindow.startPointY);
                     MainWindow.verticlesList[i].X = X;
                     MainWindow.verticlesList[i].Y = Y;
                     MainWindow.allVerticles[MainWindow.verticlesList[i].Id].X = X;
