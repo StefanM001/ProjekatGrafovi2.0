@@ -28,7 +28,6 @@ namespace ProjekatGrafovi
 		public static List<Cvor> verticlesList = new List<Cvor>();
 		public static List<Grana> edgesList = new List<Grana>();
 		public static List<string> LayoutOptions = new List<string>();
-        private double scale = 1.0;
         public static CanvasWindow newWindow = new CanvasWindow();
 
         private string verticlesString;
@@ -70,80 +69,8 @@ namespace ProjekatGrafovi
                 "Old Sugiyama layout",
             };
             layout.ItemsSource = LayoutOptions;
-			AddMapImagesOnCanvas();
-            newWindow.zoomScrollViewer.PreviewMouseWheel += ZoomScrollViewer_PreviewMouseWheel;
             DataContext = this;
-		}
-
-        private void ZoomScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            double zoomFactor = e.Delta > 0 ? 1.1 : 0.9;
-            scale *= zoomFactor;
-
-            if (scale < 0.1)
-            {
-                scale = 0.1;
-            }
-
-            var scaleTransform = new ScaleTransform(scale, scale);
-            newWindow.zoomScrollViewer.LayoutTransform = scaleTransform;
-
-            e.Handled = true;
-        }
-
-        private void AddMapImagesOnCanvas()
-		{
-           // double xFactor = 800.0 / 2923.0; 
-           // double yFactor = 800.0 / 1906.0;
-
-           // double xCoordinateFactor = 800.0 / Math.Abs((2205543.87 - 2210528.30));
-           // double yCoordinateFactor = 800.0 / Math.Abs((5662452.10 - 5659201.91));
-
-            Uri sajmisteUri = new Uri(@"GMapsImages\Sajmiste_Georeferenced.tif", UriKind.Relative);
-            double XSajam = Math.Abs((2205543.87 - 2205543.87));
-            double YSajam = Math.Abs((5662452.10 - 5662452.10));
-            Image sajmiste = new Image();
-            sajmiste.Source = new BitmapImage(sajmisteUri);
-            sajmiste.Width = sajmiste.Source.Width * 1.77;
-            sajmiste.Height = sajmiste.Source.Height * 1.77;
-            Canvas.SetTop(sajmiste, XSajam);
-            Canvas.SetLeft(sajmiste, YSajam);
-            newWindow.canvasWindow.Children.Add(sajmiste);
-
-            double XStariGrad = Math.Abs((2208082.23 - 2205543.87));
-            double YStariGrad = Math.Abs((5662264.45 - 5662452.10));
-            Uri stariGradUri = new Uri(@"GMapsImages\StariGrad_Georeferenced.tif", UriKind.Relative);
-            Image stariGrad = new Image();
-            stariGrad.Source = new BitmapImage(stariGradUri);
-            stariGrad.Width = stariGrad.Source.Width * 2.54;
-            stariGrad.Height = stariGrad.Source.Height * 2.54;
-            Canvas.SetTop(stariGrad, YStariGrad);
-            Canvas.SetLeft(stariGrad, XStariGrad);
-            newWindow.canvasWindow.Children.Add(stariGrad);
-
-            double XGrbavica = Math.Abs((2206831.29 - 2205543.87));
-            double YGrbavica = Math.Abs((5660900.80 - 5662452.10));
-            Uri grbavicaUri = new Uri(@"GMapsImages\Grbavica_Georeferenced.tif", UriKind.Relative);
-            Image grbavica = new Image();
-            grbavica.Source = new BitmapImage(grbavicaUri);
-            grbavica.Width = grbavica.Source.Width * 1.71;
-            grbavica.Height = grbavica.Source.Height * 1.71;
-            Canvas.SetTop(grbavica, YGrbavica); 
-            Canvas.SetLeft(grbavica, XGrbavica);
-            newWindow.canvasWindow.Children.Add(grbavica);
-
-            double XLiman1 = Math.Abs((2208433.32 - 2205543.87));
-            double YLiman1 = Math.Abs((5660979.82 - 5662452.10));
-
-            Uri liman1Uri = new Uri(@"GMapsImages\Liman1_Georeferenced.tif", UriKind.Relative);
-            Image liman1 = new Image();
-            liman1.Source = new BitmapImage(liman1Uri);
-            liman1.Width = liman1.Source.Width * 2.28;
-            liman1.Height = liman1.Source.Height * 2.28;
-            Canvas.SetTop(liman1, YLiman1);
-            Canvas.SetLeft(liman1, XLiman1);
-            newWindow.canvasWindow.Children.Add(liman1);
-        }
+		} 
 
         private bool ValidationNoEmptySpace()
 		{
@@ -269,6 +196,8 @@ namespace ProjekatGrafovi
 
 			DrawingGraph dg = new DrawingGraph();
 			dg.DrawGraph(newWindow.canvasWindow, verticlesList, edgesList);
+
+            newWindow.Show();
         }
 
 		private string OpenFile()

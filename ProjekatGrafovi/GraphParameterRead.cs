@@ -123,12 +123,14 @@ namespace ProjekatGrafovi
             {
                 string[] numbers = coordinateSplit[i].Split(',');
 
-                if (!Int32.TryParse(numbers[0], out int X) || !Int32.TryParse(numbers[1], out int Y))
+                if (!Double.TryParse(numbers[0], out double X) || !Double.TryParse(numbers[1], out double Y))
                 {
                     MessageBox.Show("Error in parsing coordinates!");
                 }
                 else
                 {
+                    X = Math.Abs(X - 2205543.87);
+                    Y = Math.Abs(Y - 5662452.10);
                     MainWindow.verticlesList[i].X = X;
                     MainWindow.verticlesList[i].Y = Y;
                     MainWindow.allVerticles[MainWindow.verticlesList[i].Id].X = X;

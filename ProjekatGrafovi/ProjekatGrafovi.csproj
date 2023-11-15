@@ -137,6 +137,7 @@
     <Compile Include="FileClass.cs" />
     <Compile Include="Grana.cs" />
     <Compile Include="GraphParameterRead.cs" />
+    <Compile Include="ImageGeoreferenced.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

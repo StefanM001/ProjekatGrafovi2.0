@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +23,54 @@ namespace ProjekatGrafovi
         private TranslateTransform translateTransform = new TranslateTransform();
         private Point startPoint;
         private Point startOffset;
+        private double scale = 1.0;
         public CanvasWindow()
         {
             InitializeComponent();
             canvasWindow.RenderTransform = translateTransform;
+            AddMapImagesOnCanvas();
+            zoomScrollViewer.PreviewMouseWheel += ZoomScrollViewer_PreviewMouseWheel;
+        }
+
+        private void AddMapImagesOnCanvas()
+        {
+            ImageGeoreferenced sajmiste = new ImageGeoreferenced("Sajmiste");
+            ImageGeoreferenced liman1 = new ImageGeoreferenced("Liman1");
+            ImageGeoreferenced stariGrad = new ImageGeoreferenced("StariGrad");
+            ImageGeoreferenced grbavica = new ImageGeoreferenced("Grbavica");
+
+            List<ImageGeoreferenced> listOfDistricts = new List<ImageGeoreferenced> { sajmiste,  liman1, stariGrad, grbavica };
+
+            double startPointX = listOfDistricts.Min(item => item.X);
+            double startPointY = listOfDistricts.Max(item => item.Y);
+
+            PlaceDistrictsOnMap(listOfDistricts, startPointX, startPointY);
+        }
+
+        private void PlaceDistrictsOnMap(List<ImageGeoreferenced> listOfDistricts, double startPointX, double startPointY)
+        {
+            foreach(var district in listOfDistricts)
+            {
+                Canvas.SetTop(district.georeferencedImage, Math.Abs(district.Y - startPointY));
+                Canvas.SetLeft(district.georeferencedImage, Math.Abs(district.X - startPointX));
+                canvasWindow.Children.Add(district.georeferencedImage);
+            }
+        }
+
+        private void ZoomScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            double zoomFactor = e.Delta > 0 ? 1.1 : 0.9;
+            scale *= zoomFactor;
+
+            if (scale < 0.1)
+            {
+                scale = 0.1;
+            }
+
+            var scaleTransform = new ScaleTransform(scale, scale);
+            zoomScrollViewer.LayoutTransform = scaleTransform;
+
+            e.Handled = true;
         }
 
         private void canvasWindow_MouseMove(object sender, MouseEventArgs e)
