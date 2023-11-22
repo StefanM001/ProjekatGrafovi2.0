@@ -162,5 +162,11 @@ namespace ProjekatGrafovi
 
             drawingGraph.DrawGraph(canvas, verticlesList, edges);
         }
+
+        public void CustomCoordinates(List<Cvor> verticlesList, List<Grana> edges, Canvas canvas)
+        {
+            DrawingGraph dg = new DrawingGraph();
+            dg.DrawGraph(canvas, verticlesList, edges);
+        }
     }
 }

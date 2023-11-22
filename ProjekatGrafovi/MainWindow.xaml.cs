@@ -28,7 +28,7 @@ namespace ProjekatGrafovi
 		public static List<Cvor> verticlesList = new List<Cvor>();
 		public static List<Grana> edgesList = new List<Grana>();
 		public static List<string> LayoutOptions = new List<string>();
-        public static CanvasWindow newWindow = new CanvasWindow();
+		public static CanvasWindow newWindow = new CanvasWindow();
 
         private string verticlesString;
 		public string VerticlesString
@@ -64,6 +64,7 @@ namespace ProjekatGrafovi
 			InitializeComponent();
             LayoutOptions = new List<string>
             {
+				"Custom Coordinates",
                 "Circular Layout",
                 "New Sugiyama layout",
                 "Old Sugiyama layout",
@@ -98,6 +99,10 @@ namespace ProjekatGrafovi
 		{
 			VerticlesString = "";
 			EdgesString = "";
+			verticles.IsEnabled = true;
+			edges.IsEnabled = true;
+			verticles.Text = "";
+			verticles.Text = "";
 			edgesList.Clear();
 			allVerticles.Clear();
 			verticlesList.Clear();
@@ -105,43 +110,78 @@ namespace ProjekatGrafovi
 
         private void Generisi_Click(object sender, RoutedEventArgs e)
 		{
-			if (!ValidationNoEmptySpace())
+            newWindow = new CanvasWindow();
+            if (verticles.Text == "Nodes generated from file")
 			{
-				MessageBox.Show("You can't leave empty spaces for verticles or edges!", "Error - empty spaces", MessageBoxButton.OK, MessageBoxImage.Warning) ;
-			}
-			else
-			{
-				ClearCanvas(newWindow.canvasWindow);
-                GraphParameterRead gpr = new GraphParameterRead();
-
-				string[] cvoroviSplit = VerticlesString.Split(',');
-
-				gpr.AddNewVertex(cvoroviSplit, VerticlesString, EdgesString, verticles);
-
-				string[] graneSplit = edgesString.Split(';');
-                
-				gpr.AddNewEdge(graneSplit, VerticlesString, EdgesString, edges);
-
+                ClearCanvas(newWindow.canvasWindow);
                 if (layout.SelectedItem != null)
                 {
                     ChooseLayoutOption(layout.SelectedItem.ToString());
+
+                    verticles.BorderBrush = Brushes.AliceBlue;
+                    edges.BorderBrush = Brushes.AliceBlue;
+
+                  /*  FileClass fc = new FileClass();
+
+                    int idSCV = fc.ReadNumberTxt();
+                    fc.SaveToNewFastGenerateTxt(edgesString, idSCV);
+                    MessageBox.Show($"Your graph parameters are succesfully saved in file FastGraph{idSCV}.txt"); */
+
+					//otkomentarisi kasnije
+
+					newWindow.Show();
+
+                    StartAgain();
                 }
                 else
                 {
                     MessageBox.Show("You need to choose layout first!");
                 }
+            }
+			else
+			{
+                if (!ValidationNoEmptySpace())
+                {
+                    MessageBox.Show("You can't leave empty spaces for verticles or edges!", "Error - empty spaces", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    ClearCanvas(newWindow.canvasWindow);
+                    GraphParameterRead gpr = new GraphParameterRead();
 
-                verticles.BorderBrush = Brushes.AliceBlue;
-				edges.BorderBrush = Brushes.AliceBlue;
+                    string[] cvoroviSplit = VerticlesString.Split(',');
 
-                FileClass fc = new FileClass();
+                    gpr.AddNewVertex(cvoroviSplit, VerticlesString, EdgesString, verticles);
 
-                int idSCV = fc.ReadNumberTxt();
-                fc.SaveToNewFastGenerateTxt(edgesString, idSCV);
-                MessageBox.Show($"Your graph parameters are succesfully saved in file FastGraph{idSCV}.txt");
+                    string[] graneSplit = edgesString.Split(';');
 
-                StartAgain();
-			}
+                    gpr.AddNewEdge(graneSplit, VerticlesString, EdgesString, edges);
+
+                    if (layout.SelectedItem != null)
+                    {
+                        ChooseLayoutOption(layout.SelectedItem.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show("You need to choose layout first!");
+                    }
+
+                    verticles.BorderBrush = Brushes.AliceBlue;
+                    edges.BorderBrush = Brushes.AliceBlue;
+
+                  /*  FileClass fc = new FileClass();
+
+                    int idSCV = fc.ReadNumberTxt();
+                    fc.SaveToNewFastGenerateTxt(edgesString, idSCV);
+                    MessageBox.Show($"Your graph parameters are succesfully saved in file FastGraph{idSCV}.txt"); */
+
+					//otkomentarisati kasnije
+
+					newWindow.Show();
+
+                    StartAgain();
+                }
+            }
 		}
 
         private void FastGenerate_Click(object sender, RoutedEventArgs e)
@@ -159,7 +199,7 @@ namespace ProjekatGrafovi
             gpr.FastVertexAdd(graneSplit);
             gpr.AddNewEdge(graneSplit, VerticlesString, EdgesString, edges);
 
-			if(layout.SelectedItem != null)
+			/*if(layout.SelectedItem != null)
 			{
                 ChooseLayoutOption(layout.SelectedItem.ToString());
             }
@@ -169,7 +209,12 @@ namespace ProjekatGrafovi
 			}
             newWindow.Show();
             
-            StartAgain();
+            StartAgain(); */
+
+			verticles.Text = "Nodes generated from file";
+			verticles.IsEnabled = false;
+			edges.Text = "Edges generated from file";
+			edges.IsEnabled = false;
         }
 
         private void CoordinatesChoose_Click(object sender, RoutedEventArgs e)
@@ -183,21 +228,21 @@ namespace ProjekatGrafovi
 
             GraphParameterRead gpr = new GraphParameterRead();
 
-            string[] cvoroviSplit = VerticlesString.Split(',');
+          /*  string[] cvoroviSplit = VerticlesString.Split(',');
 
             gpr.AddNewVertex(cvoroviSplit, VerticlesString, EdgesString, verticles);
 
             string[] graneSplit = edgesString.Split(';');
 
-            gpr.AddNewEdge(graneSplit, VerticlesString, EdgesString, edges);
+            gpr.AddNewEdge(graneSplit, VerticlesString, EdgesString, edges); */
 
 			string[] coordinateSplit = allCoordinates.Split(';');
 			gpr.SetNodesCoordinates(coordinateSplit);
 
-			DrawingGraph dg = new DrawingGraph();
+			/*DrawingGraph dg = new DrawingGraph();
 			dg.DrawGraph(newWindow.canvasWindow, verticlesList, edgesList);
 
-            newWindow.Show();
+            newWindow.Show(); */
         }
 
 		private string OpenFile()
@@ -242,10 +287,26 @@ namespace ProjekatGrafovi
                 case "Old Sugiyama layout":
                     algorithmClass.OldLayoutGraph(verticlesList, edgesList, newWindow.canvasWindow);
                     break;
+				case "Custom Coordinates":
+					//do something
+					algorithmClass.CustomCoordinates(verticlesList, edgesList, newWindow.canvasWindow);
+					break;
                 default:
                     MessageBox.Show("You have to choose layout first!");
                     break;
             }
+        }
+
+        private void layout_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+			if(layout.SelectedItem.ToString() == "Custom Coordinates")
+			{
+				CoordinatesChoose.IsEnabled = true;
+			}
+			else
+			{
+				CoordinatesChoose.IsEnabled = false;
+			}
         }
     }
 }
