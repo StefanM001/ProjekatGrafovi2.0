@@ -8,12 +8,14 @@ using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Security.Cryptography;
+using ProjekatGrafovi.Model;
+using ProjekatGrafovi.ViewModel;
 
 namespace ProjekatGrafovi
 {
     public class GraphParameterRead
     {
-        public void AddNewVertex(string[] verticlesSplit, string VerticlesString, string EdgesString, TextBox verticles)
+        public void AddNewVertex(string[] verticlesSplit, string VerticlesString, string EdgesString)
         {
             for (int i = 0; i < verticlesSplit.Length; i++)
             {
@@ -23,21 +25,21 @@ namespace ProjekatGrafovi
                     MessageBox.Show("Input was not in correct form", "Add new vertex", MessageBoxButton.OK, MessageBoxImage.Error);
                     VerticlesString = "";
                     EdgesString = "";
-                    verticles.BorderBrush = Brushes.Red;
-                    verticles.BorderThickness = new Thickness(3);
+                    //verticles.BorderBrush = Brushes.Red;
+                    //verticles.BorderThickness = new Thickness(3);
                     return;
                 }
                 else
                 {
                     int x = 0;
                     int y = 0;
-                    MainWindow.allVerticles.Add(id, new Cvor(id, x, y));
-                    MainWindow.verticlesList.Add(new Cvor(id, x, y));
+                    AddNewGraphViewModel.allVerticles.Add(id, new Cvor(id, x, y));
+                    AddNewGraphViewModel.verticlesList.Add(new Cvor(id, x, y));
                 }
             }
         }
 
-        public void AddNewEdge(string[] edgesSplit, string VerticlesString, string EdgesString, TextBox edges)
+        public void AddNewEdge(string[] edgesSplit, string VerticlesString, string EdgesString)
         {
             for (int i = 0; i < edgesSplit.Count(); i++)
             {
@@ -51,20 +53,20 @@ namespace ProjekatGrafovi
                     MessageBox.Show("Input was not in correct form", "Add new edge", MessageBoxButton.OK, MessageBoxImage.Error);
                     VerticlesString = "";
                     EdgesString = "";
-                    edges.BorderBrush = Brushes.Red;
-                    edges.BorderThickness = new Thickness(5);
+                  //  edges.BorderBrush = Brushes.Red;
+                  //  edges.BorderThickness = new Thickness(5);
                     return;
                 }
                 else
                 {
                     if (prviID == drugiID)
                     {
-                        Grana g = new Grana(MainWindow.allVerticles[prviID], MainWindow.allVerticles[prviID]);
-                        MainWindow.edgesList.Add(g);
+                        Grana g = new Grana(AddNewGraphViewModel.allVerticles[prviID], AddNewGraphViewModel.allVerticles[prviID]);
+                        AddNewGraphViewModel.edgesList.Add(g);
                     }
                     else
                     {
-                        if (!MainWindow.allVerticles.ContainsKey(prviID) || !MainWindow.allVerticles.ContainsKey(drugiID))
+                        if (!AddNewGraphViewModel.allVerticles.ContainsKey(prviID) || !AddNewGraphViewModel.allVerticles.ContainsKey(drugiID))
                         {
                             MessageBox.Show($"Grana sa cvorovima {prviID} i {drugiID} sadrzi neinicijalizovan cvor!");
                             VerticlesString = "";
@@ -73,8 +75,8 @@ namespace ProjekatGrafovi
                         }
                         else
                         {
-                            Grana g = new Grana(MainWindow.allVerticles[prviID], MainWindow.allVerticles[drugiID]);
-                            MainWindow.edgesList.Add(g);
+                            Grana g = new Grana(AddNewGraphViewModel.allVerticles[prviID], AddNewGraphViewModel.allVerticles[drugiID]);
+                            AddNewGraphViewModel.edgesList.Add(g);
                         }
                     }
                 }
@@ -103,14 +105,14 @@ namespace ProjekatGrafovi
                     int y = 0;
                     if (!uniqueVertex.ContainsKey(prviID))
                     {
-                        MainWindow.allVerticles.Add(prviID, new Cvor(prviID, x, y));
-                        MainWindow.verticlesList.Add(new Cvor(prviID, x, y));
+                        AddNewGraphViewModel.allVerticles.Add(prviID, new Cvor(prviID, x, y));
+                        AddNewGraphViewModel.verticlesList.Add(new Cvor(prviID, x, y));
                         uniqueVertex.Add(prviID, new Cvor(prviID, x, y));
                     }
                     if (!uniqueVertex.ContainsKey(drugiID))
                     {
-                        MainWindow.allVerticles.Add(drugiID, new Cvor(drugiID, x, y));
-                        MainWindow.verticlesList.Add(new Cvor(drugiID, x, y));
+                        AddNewGraphViewModel.allVerticles.Add(drugiID, new Cvor(drugiID, x, y));
+                        AddNewGraphViewModel.verticlesList.Add(new Cvor(drugiID, x, y));
                         uniqueVertex.Add(drugiID, new Cvor(drugiID, x, y));
                     }
                 }
@@ -131,15 +133,15 @@ namespace ProjekatGrafovi
                 {
                     X = Math.Abs(X - CanvasWindow.startPointX);
                     Y = Math.Abs(Y - CanvasWindow.startPointY);
-                    MainWindow.verticlesList[i].X = X;
-                    MainWindow.verticlesList[i].Y = Y;
-                    MainWindow.allVerticles[MainWindow.verticlesList[i].Id].X = X;
-                    MainWindow.allVerticles[MainWindow.verticlesList[i].Id].Y = Y;
+                    AddNewGraphViewModel.verticlesList[i].X = X;
+                    AddNewGraphViewModel.verticlesList[i].Y = Y;
+                    AddNewGraphViewModel.allVerticles[AddNewGraphViewModel.verticlesList[i].Id].X = X;
+                    AddNewGraphViewModel.allVerticles[AddNewGraphViewModel.verticlesList[i].Id].Y = Y;
 
-                    foreach (Grana edge in MainWindow.edgesList)
+                    foreach (Grana edge in AddNewGraphViewModel.edgesList)
                     {
-                        if (MainWindow.allVerticles.TryGetValue(edge.prvi.Id, out Cvor sourceNode) &&
-                            MainWindow.allVerticles.TryGetValue(edge.drugi.Id, out Cvor targetNode))
+                        if (AddNewGraphViewModel.allVerticles.TryGetValue(edge.prvi.Id, out Cvor sourceNode) &&
+                            AddNewGraphViewModel.allVerticles.TryGetValue(edge.drugi.Id, out Cvor targetNode))
                         {
                             edge.prvi.X = sourceNode.X;
                             edge.prvi.Y = sourceNode.Y;

@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace ProjekatGrafovi
 {
-    public class ImageGeoreferenced
+    public class ImageGeoreferenced : BindableBase
     {
         private double x;
         private double y;

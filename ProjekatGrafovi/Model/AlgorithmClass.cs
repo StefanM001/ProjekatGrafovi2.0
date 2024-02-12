@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using ProjekatGrafovi.Model;
 
 namespace ProjekatGrafovi
 {
     public class AlgorithmClass
     {
-        public void NewLayoutGraph(List<Cvor> verticlesList, List<Grana> edges, Canvas canvas)
+        public void NewLayoutGraph(List<Model.Cvor> verticlesList, List<Grana> edges, Canvas canvas)
         {
             int layerSpacing = 70;
             // int nodeSpacing = 50;

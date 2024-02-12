@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjekatGrafovi
+namespace ProjekatGrafovi.Model
 {
-	public class Cvor
+	public class Cvor : BindableBase
 	{
 		public int Id { get; set; }
 		public double X { get; set; }

@@ -70,6 +70,9 @@
     <Reference Include="ExCSS, Version=4.1.4.0, Culture=neutral, PublicKeyToken=bdbe16be9b936b9a, processorArchitecture=MSIL">
       <HintPath>..\packages\ExCSS.4.1.4\lib\net452\ExCSS.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -95,6 +98,9 @@
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -116,7 +122,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CanvasWindow.xaml">
+    <Compile Include="BindableBase.cs" />
+    <Compile Include="ResourceFolder\LocalizedStrings.cs" />
+    <Compile Include="MyICommand.cs" />
+    <Compile Include="ResourceFolder\ParametersResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ParametersResource.resx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ViewModel\AddNewGraphViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\CanvasWindowViewModel.cs" />
+    <Compile Include="Views\AddNewGraphView.xaml.cs">
+      <DependentUpon>AddNewGraphView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MapRepresentationView.xaml.cs">
+      <DependentUpon>MapRepresentationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VML\ViewModelLocator.cs" />
+    <Page Include="Views\CanvasWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,24 +149,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AlgorithmClass.cs" />
+    <Compile Include="Model\AlgorithmClass.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CanvasWindow.xaml.cs">
+    <Compile Include="Views\CanvasWindow.xaml.cs">
       <DependentUpon>CanvasWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Cvor.cs" />
-    <Compile Include="DrawingGraph.cs" />
-    <Compile Include="FileClass.cs" />
-    <Compile Include="Grana.cs" />
-    <Compile Include="GraphParameterRead.cs" />
-    <Compile Include="ImageGeoreferenced.cs" />
+    <Compile Include="Model\Cvor.cs" />
+    <Compile Include="Model\DrawingGraph.cs" />
+    <Compile Include="Model\FileClass.cs" />
+    <Compile Include="Model\Grana.cs" />
+    <Compile Include="Model\GraphParameterRead.cs" />
+    <Compile Include="Model\ImageGeoreferenced.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddNewGraphView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MapRepresentationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -157,6 +190,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="ResourceFolder\ParametersResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ParametersResource.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -184,35 +222,89 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="GMapsImages\Grbavica.jpg" />
-    <Resource Include="GMapsImages\Grbavica.jpg.aux.xml" />
-    <Resource Include="GMapsImages\Grbavica_georeferenced.tif" />
-    <Resource Include="GMapsImages\Grbavica_georeferenced.tif.aux.xml" />
-    <Resource Include="GMapsImages\Liman1.jpg" />
-    <Resource Include="GMapsImages\Liman1.jpg.aux.xml" />
-    <Resource Include="GMapsImages\Liman1_Georeferenced.tif" />
-    <Resource Include="GMapsImages\Liman1_Georeferenced.tif.aux.xml" />
-    <Resource Include="GMapsImages\Liman23.jpg" />
-    <Resource Include="GMapsImages\Liman23.jpg.aux.xml" />
-    <Resource Include="GMapsImages\Liman23_Georeferenced.tif" />
-    <Resource Include="GMapsImages\Liman23_Georeferenced.tif.aux.xml" />
-    <Resource Include="GMapsImages\Liman34.jpg" />
-    <Resource Include="GMapsImages\Liman34.jpg.aux.xml" />
-    <Resource Include="GMapsImages\Liman34_Georeferenced.tif" />
-    <Resource Include="GMapsImages\Liman34_Georeferenced.tif.aux.xml" />
-    <Resource Include="GMapsImages\NoviSadComplete.tif" />
-    <Resource Include="GMapsImages\NoviSadComplete.tif.aux.xml" />
-    <Resource Include="GMapsImages\Sajmiste.jpg" />
-    <Resource Include="GMapsImages\Sajmiste.jpg.aux.xml" />
-    <Resource Include="GMapsImages\Sajmiste_Georeferenced.tif" />
-    <Resource Include="GMapsImages\Sajmiste_Georeferenced.tif.aux.xml" />
-    <Resource Include="GMapsImages\StariGrad.jpg" />
-    <Resource Include="GMapsImages\StariGrad.jpg.aux.xml" />
-    <Resource Include="GMapsImages\StariGrad_Georeferenced.tif" />
-    <Resource Include="GMapsImages\StariGrad_Georeferenced.tif.aux.xml" />
+    <Resource Include="GMapsImages\Grbavica.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Grbavica.jpg.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Grbavica_georeferenced.tif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Grbavica_georeferenced.tif.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman1.jpg.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman1_Georeferenced.tif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman1_Georeferenced.tif.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman23.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman23.jpg.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman23_Georeferenced.tif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman23_Georeferenced.tif.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman34.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman34.jpg.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman34_Georeferenced.tif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Liman34_Georeferenced.tif.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\NoviSadComplete.tif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\NoviSadComplete.tif.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Sajmiste.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Sajmiste.jpg.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Sajmiste_Georeferenced.tif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\Sajmiste_Georeferenced.tif.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\StariGrad.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\StariGrad.jpg.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\StariGrad_Georeferenced.tif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="GMapsImages\StariGrad_Georeferenced.tif.aux.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="GMapsImages\NoviSadComplete-Copy.tif" />
+    <Resource Include="GMapsImages\NoviSadComplete-Copy.tif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

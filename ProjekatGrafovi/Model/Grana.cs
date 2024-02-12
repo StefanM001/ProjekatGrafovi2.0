@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjekatGrafovi
+namespace ProjekatGrafovi.Model
 {
-	public class Grana
+	public class Grana : BindableBase
 	{
 		public Cvor prvi { get; set; }
 		public Cvor drugi { get; set; }
